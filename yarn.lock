@@ -221,6 +221,12 @@ aws4@^1.2.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.5.0.tgz#0a29ffb79c31c9e712eeb087e8e7a64b4a56d755"
 
+axios@^0.15.3:
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.15.3.tgz#2c9d638b2e191a08ea1d6cc988eadd6ba5bdc053"
+  dependencies:
+    follow-redirects "1.0.0"
+
 babel-code-frame@^6.11.0, babel-code-frame@^6.16.0:
   version "6.16.0"
   resolved "https://registry.yarnpkg.com/babel-code-frame/-/babel-code-frame-6.16.0.tgz#f90e60da0862909d3ce098733b5d3987c97cb8de"
@@ -968,6 +974,10 @@ block-stream@*:
 bluebird@^3.4.6:
   version "3.4.6"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.6.tgz#01da8d821d87813d158967e743d5fe6c62cf8c0f"
+
+blueimp-md5@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/blueimp-md5/-/blueimp-md5-2.6.0.tgz#c96dd67f57db522da9a0c49b464ca44e20c04e0f"
 
 boolbase@~1.0.0:
   version "1.0.0"
@@ -2122,6 +2132,12 @@ flat-cache@^1.2.1:
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
+
+follow-redirects@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.0.0.tgz#8e34298cbd2e176f254effec75a1c78cc849fd37"
+  dependencies:
+    debug "^2.2.0"
 
 for-in@^0.1.5:
   version "0.1.6"
@@ -4841,6 +4857,10 @@ table@^3.7.8:
     lodash "^4.0.0"
     slice-ansi "0.0.4"
     string-width "^2.0.0"
+
+tachyons@^4.5.6:
+  version "4.5.6"
+  resolved "https://registry.yarnpkg.com/tachyons/-/tachyons-4.5.6.tgz#a0e8bd06f880bd0b8dd4c3c453ce14ffbc43538b"
 
 tapable@^0.1.8, tapable@~0.1.8:
   version "0.1.10"

@@ -1,0 +1,21 @@
+.arrow-down {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 8px 8px 0 8px;
+	border-color: white transparent transparent transparent;
+}
+
+.rotating-menu {
+	-webkit-transform:perspective(400) rotate3d(1,0,0,-90deg);
+    -webkit-transform-origin:50% 0;
+    -webkit-transition:350ms;
+    -moz-transition:350ms;
+    -o-transition:350ms;
+    transition:350ms;
+}
+
+.rotating-menu.open {
+	max-height:1000px;
+	-webkit-transform:perspective(400) rotate3d(0,0,0,0);
+}

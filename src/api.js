@@ -14,7 +14,6 @@ export function parseJSON(response) {
 
 export function post(url, data) {
   const headers = {
-    Authorization: localStorage.getItem('phoenixAuthToken'),
     Accept: 'application/json',
     'Content-Type': 'application/json',
   }
@@ -25,6 +24,34 @@ export function post(url, data) {
     method: 'post',
     headers: headers,
     body: body,
+  })
+  .then(checkStatus)
+  .then(parseJSON);
+}
+
+export function get(url) {
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }
+
+  return fetch(url, {
+    method: 'get',
+    headers: headers,
+  })
+  .then(checkStatus)
+  .then(parseJSON);
+}
+
+export function logout(session) {
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }
+
+  return fetch(`http://localhost:4000/api/v1/session/${session.id}`, {
+    method: 'delete',
+    headers: headers,
   })
   .then(checkStatus)
   .then(parseJSON);

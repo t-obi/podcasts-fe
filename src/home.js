@@ -5,7 +5,7 @@ class Home extends Component {
     return (
 
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          Welcome! This will become a startpage at some point.
         </p>
     );
   }
