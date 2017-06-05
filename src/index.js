@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import Register from './register';
-import Login from './login';
-import Home from './home';
-import AdminContainer from './AdminContainer';
-import UsersAdmin from './UsersAdmin';
-import SessionAdmin from './SessionAdmin';
-import './index.css';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import axios from 'axios';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+
+import reducers from './reducers';
+import App from './components/App';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import Home from './components/Home';
+import AdminContainer from './components/AdminContainer';
+import UsersAdmin from './components/UsersAdmin';
+import FeedsAdmin from './components/FeedsAdmin';
+import NotFound from './components/NotFound';
+import UnknownError from './components/UnknownError';
+import FeedDetailsPage from './components/FeedDetailsPage';
 
 const session = JSON.parse(localStorage.getItem('session'));
 
@@ -22,19 +28,46 @@ function validateLoggedIn(nextState, replace, callback) {
     callback();
 }
 
-axios.defaults.baseURL = 'http://localhost:4000/api/v1';
-axios.defaults.headers.common['Authorization'] = `Token token=${session.token}`;
+axios.interceptors.response.use(response => response,
+  error => {
+    switch(error.response.status) {
+      case 401:
+      browserHistory.push('/unauthorized');
+      return Promise.reject(error);
+      case 404:
+      browserHistory.push('/notfound');
+      return Promise.reject(error);
+      default:
+      browserHistory.push('/error', error.response.data.errors);
+      return Promise.reject(error);
+    }
+});
+
+axios.defaults.baseURL = 'http://localhost:4000/api';
+if(session && session.token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${session.token}`;
+}
+
+let store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render((
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-    	<IndexRoute component={Home}/>
-    	<Route path="register" component={Register} />
-      <Route path="login" component={Login} />
-      <Route path="admin" component={AdminContainer} onEnter={validateLoggedIn}>
-        <Route path="users" component={UsersAdmin} />
-    	  <Route path="sessions" component={SessionAdmin} />
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={App}>
+        <IndexRoute component={Home}/>
+        <Route path="signup" component={Signup} />
+        <Route path="login" component={Login} />
+        <Route path="unauthorized" component={Login} />
+        <Route path="notfound" component={NotFound} />
+        <Route path="error" component={UnknownError} />
+        <Route path="admin" component={AdminContainer} onEnter={validateLoggedIn}>
+          <Route path="users" component={UsersAdmin} />
+          <Route path="feeds" >
+            <IndexRoute component={FeedsAdmin} />
+            <Route path=":id" component={FeedDetailsPage} />
+          </Route>
+        </Route>
       </Route>
-    </Route>
-  </Router>
+    </Router>
+  </Provider>
 ), document.getElementById('root'));
