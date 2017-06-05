@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import UserMenu from './UserMenu';
-import { Link, browserHistory } from 'react-router';
-import './App.css';
+import Header from './Header';
+import { browserHistory } from 'react-router';
 import 'tachyons'
 import axios from 'axios';
 
@@ -43,23 +42,14 @@ class App extends Component {
       session,
     });
     localStorage.setItem('session', JSON.stringify(session));
-    if(session.token) {
-      axios.defaults.headers.common['Authorization'] = `Token token=${session.token}`;
-    } else {
-      delete axios.defaults.headers.common['Authorization'];
-    }
+    axios.defaults.headers.common['Authorization'] = `Bearer ${session.token}`;
     browserHistory.push('/');
   }
 
   render() {
     return (
       <div className="App sans-serif">
-        <header className="bg-dark-red w-100 ph3 pv3 pv4-ns ph4-m ph5-l z-1 top-0">
-          <nav className="f6 fw6 ttu tracked">
-            <Link className="link grow white dib" to="/">Podcasts</Link>
-            <UserMenu session={this.state.session}/>
-          </nav>
-        </header>
+        <Header session={this.state.session} />
         <main className="mv4 mw7-ns center pa3 ph5-ns">
           {this.props.children}
         </main>

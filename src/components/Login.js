@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { post } from './api';
 import axios from 'axios';
 
 class Login extends Component {
 
   state = {
-    email: '',
+    username: '',
     password: '',
   }
 
@@ -19,21 +18,18 @@ class Login extends Component {
     event.preventDefault();
     event.stopPropagation();
 
-    const { email, password } = this.state;
-    const session = {
-      email: email,
-      password: password,
-    };
+    const { username, password } = this.state;
 
-    axios.post('/sessions', { session })
+    axios.post('/token', {
+      username,
+      password,
+      "grant_type": "password",
+    })
       .then((response) => {
         console.log(response);
         this.context.handleSessionChange({
           isLoggedIn: true,
-          token: response.data.data.token,
-          email: response.data.data.email,
-          expiresAt: '1234567',
-          id: response.data.data.id,
+          token: response.data.access_token,
         });
       })
       .catch(function (error) {
@@ -60,13 +56,13 @@ class Login extends Component {
         <form onSubmit={this.handleSubmit}>
           <fieldset className="b--transparent ph0 mh0">
             <label className="mt3 db fw6 lh-copy f6">
-              Email
+              Username
               <input
                 className="input ba w-100 pa2 normal f5"
-                type="email"
+                type="text"
                 required={true}
-                value={this.state.email}
-                onChange={(e) => {this.setState({email: e.target.value})}}
+                value={this.state.username}
+                onChange={(e) => {this.setState({username: e.target.value})}}
               />
             </label>
             <label className="mt3 db fw6 lh-copy f6">
@@ -86,7 +82,7 @@ class Login extends Component {
             Sign in
           </button>
           <div className="lh-copy mt3 ml1">
-            <Link className="f6 link dim black db" to="/register">Register</Link>
+            <Link className="f6 link dim black db" to="/signup">Signup</Link>
           </div>
         </form>
       </div>
