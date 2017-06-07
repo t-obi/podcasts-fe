@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import axios from 'axios';
 
@@ -10,7 +11,7 @@ class Login extends Component {
   }
 
   static contextTypes = {
-    session: React.PropTypes.object,
+    session: PropTypes.object,
     handleSessionChange: PropTypes.func,
   };
 

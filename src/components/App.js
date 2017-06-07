@@ -1,8 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import 'tachyons'
+
 import Header from './Header';
 import { browserHistory } from 'react-router';
-import 'tachyons'
-import axios from 'axios';
 
 function getInitialSession() {
   const fallback = {

@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import '../styles/header.css';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
+import { Link } from 'react-router';
+
+import '../styles/header.css';
 
 class UserMenu extends Component {
 
