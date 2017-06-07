@@ -7,3 +7,8 @@ cache:
 script:
   - npm test
   - npm run build
+deploy:
+  - provider: script
+    script: now alias -t $NOW_TOKEN `now -t $NOW_TOKEN --public --name podcasts build` podcasts
+    on:
+      branch: master
