@@ -5,11 +5,15 @@ import 'tachyons'
 import axios from 'axios';
 
 function getInitialSession() {
-  const session = JSON.parse(localStorage.getItem('session'));
   const fallback = {
     isLoggedIn: false,
   };
-  return session || fallback;
+  try {
+    const session = JSON.parse(localStorage.getItem('session'));
+    return session || fallback;
+  } catch(error) {
+    return fallback;
+  }
 }
 
 class App extends Component {
