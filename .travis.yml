@@ -8,6 +8,7 @@ script:
   - npm test
   - npm run build
 deploy:
+  skip_cleanup: true
   - provider: script
     script: now alias -t $NOW_TOKEN `now -t $NOW_TOKEN --public --name podcasts build` podcasts
     on:
