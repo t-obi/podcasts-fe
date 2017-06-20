@@ -9,7 +9,6 @@ script:
   - npm run build
 deploy:
   - provider: script
-    skip_cleanup: true
-    script: now alias -t $NOW_TOKEN `now -t $NOW_TOKEN --public --name podcasts build` podcasts
+    script: npm run deploy
     on:
       branch: master
