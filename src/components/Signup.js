@@ -26,7 +26,7 @@ class Signup extends Component {
       },
     };
 
-    post('http://localhost:4000/api/register', {data})
+    post('/register', {data})
   }
 
   handleInputChange(key, value) {
