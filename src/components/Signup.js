@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { post } from '../util/api';
+import axios from 'axios';
 
 class Signup extends Component {
 
@@ -26,7 +26,7 @@ class Signup extends Component {
       },
     };
 
-    post('/register', {data})
+    axios.post('/register', { data })
   }
 
   handleInputChange(key, value) {
