@@ -10,7 +10,7 @@ function SearchResultListItem({ data: {
   feedUrl,
   genres,
 } }) {
-  return <div className="mt2 pa2 b--gray b-dotted ba flex">
+  return <div className="mt2 pa2 b-black b--dotted ba flex">
     {artworkUrl100 && <img src={artworkUrl100}
       alt=""
       className="flex-none mr2 "

@@ -43,7 +43,7 @@ axios.interceptors.response.use(response => response,
     }
 });
 
-axios.defaults.baseURL = 'http://localhost:4000/api';
+axios.defaults.baseURL = process.env.REACT_APP_API_BASEURL;
 if(session && session.token) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${session.token}`;
 }

@@ -49,7 +49,7 @@ export function logout(session) {
     'Content-Type': 'application/json',
   }
 
-  return fetch(`http://localhost:4000/api/v1/session/${session.id}`, {
+  return fetch(`/session/${session.id}`, {
     method: 'delete',
     headers: headers,
   })
