@@ -9,6 +9,7 @@ script:
   - npm run build
 deploy:
   - provider: script
-    script: npm run deploy
+    skip_cleanup: true
+    script: rm -rf build && npm run deploy
     on:
       branch: master
