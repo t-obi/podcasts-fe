@@ -10,6 +10,6 @@ script:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: rm -rf build && npm run deploy
+    script: rm -rf build && npm run deploy -- -t $NOW_TOKEN
     on:
       branch: master
