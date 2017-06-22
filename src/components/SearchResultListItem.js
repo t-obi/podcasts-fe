@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 function SearchResultListItem({ data: {
   trackName,
@@ -9,6 +10,7 @@ function SearchResultListItem({ data: {
   artworkUrl600,
   feedUrl,
   genres,
+  feed_id,
 } }) {
   return <div className="mt2 pa2 b-black b--dotted ba flex">
     {artworkUrl100 && <img src={artworkUrl100}
@@ -17,7 +19,9 @@ function SearchResultListItem({ data: {
     />}
     <div className="flex-auto">
       <div className="fw6">
-        {trackName}
+        {feed_id
+          ? <Link to={`/feeds/${feed_id}`}>{trackName}</Link>
+          : trackName}
       </div>
     </div>
   </div>;
