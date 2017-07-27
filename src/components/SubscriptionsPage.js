@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 import { Arrow } from 'reline';
 import { Link } from 'react-router';
 
-import { jsonApi } from '../actions';
+import { jsonApi, jsonApiDelete } from '../actions';
 
 class SubscriptionsPage extends Component {
 
@@ -32,6 +32,12 @@ class SubscriptionsPage extends Component {
         this.props.handleJsonApiResponse(result.data);
       })
     }
+  }
+
+  handleUnsubscribe = async (subscriptionId) => {
+    const result = await axios.delete(`subscriptions/${subscriptionId}`);
+    console.log("unsubscribe result: ", result);
+    this.props.confirmUnsubscribe(subscriptionId);
   }
 
   render() {
@@ -61,6 +67,11 @@ class SubscriptionsPage extends Component {
                     className="h4 w4 fl mr2 mb2"
                   />
                   <div>{x.get('description')}</div>
+                  <button onClick={() => this.handleUnsubscribe(key)}
+                    className="b--none white bg-light-red pv2 ph3 mt2 dim pointer ttu"
+                  >
+                    Unsusbscribe
+                  </button>
                 </div>
             }
           </div>
@@ -85,7 +96,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleJsonApiResponse: (response) => {
       dispatch(jsonApi(response))
-    }
+    },
+    confirmUnsubscribe: (id) => {
+      dispatch(jsonApiDelete('subscription', id))
+    },
   }
 }
 
