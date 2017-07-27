@@ -35,32 +35,36 @@ class SubscriptionsPage extends Component {
   }
 
   render() {
-
-    if(!this.props.subscriptions) {
+    const { subscriptions, subscribedFeeds } = this.props;
+    if(!subscriptions) {
       return (
         <div>Loading Subscriptions...</div>
       );
     }
+    const keys = subscribedFeeds.keySeq();
     return (
       <div>
-        {this.props.subscribedFeeds.map((x, key) => <div className="ma3 ba b--dotted pa3">
-          {!x
-            ? <div> Loading Details...</div>
-            : <div className="cf">
-                <h4 className="mt0 h2 flex items-center">
-                  <Link to={`feeds/${x.get('feed-id')}`}>{x.get('title')}</Link>
-                  <a href={x.get('link')}>
-                    <Arrow className="h-100 ml2 light-red dim" />
-                  </a>
-                </h4>
-                <img src={x.get('image-url')}
-                  alt=""
-                  className="h4 w4 fl mr2 mb2"
-                />
-                <div>{x.get('description')}</div>
-              </div>
-          }
-        </div>)}
+        {keys.map((key) => {
+          const x = subscribedFeeds.get(key);
+          return <div key={key} className="ma3 ba b--dotted pa3">
+            {!x
+              ? <div> Loading Details...</div>
+              : <div className="cf">
+                  <h4 className="mt0 h2 flex items-center">
+                    <Link to={`feeds/${x.get('feed-id')}`}>{x.get('title')}</Link>
+                    <a href={x.get('link')}>
+                      <Arrow className="h-100 ml2 light-red dim" />
+                    </a>
+                  </h4>
+                  <img src={x.get('image-url')}
+                    alt=""
+                    className="h4 w4 fl mr2 mb2"
+                  />
+                  <div>{x.get('description')}</div>
+                </div>
+            }
+          </div>
+        })}
       </div>
     );
   }
