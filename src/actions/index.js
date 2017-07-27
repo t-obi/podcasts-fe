@@ -9,6 +9,16 @@ export const jsonApi = (response) => {
   return {
     type: 'ADD_ENTITY',
     entity: response.data,
+    included: response.included
+  }
+}
+
+export const jsonApiDelete = (type, id) => {
+  console.log('in jsonapi delete action dispatcher...');
+  return {
+    type: 'REMOVE_ENTITY',
+    entity_type: type,
+    entity_id: id,
   }
 }
 

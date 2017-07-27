@@ -21,7 +21,35 @@ async function handleUpdate(feedId, onUpdate) {
   onUpdate(result.data);
 }
 
-function FeedDetails({ feed, id, onUpdate }) {
+async function handleSubscribe(feedId, onSubscribe) {
+  const data = {
+    "data": {
+      type: "subscription",
+      "attributes": {
+        "feed-id": feedId,
+      }
+    }
+  };
+  const result = await axios.post("subscriptions", data);
+  console.log("subscribe result: ", result)
+  onSubscribe(result.data)
+}
+
+async function handleUnsubscribe(subscriptionId, onUnsubscribe) {
+  const result = await axios.delete(`subscriptions/${subscriptionId}`);
+  console.log("unsubscribe result: ", result)
+  onUnsubscribe(result.data)
+}
+
+function FeedDetails({
+  feed,
+  id,
+  onUpdate,
+  subscribed,
+  subscriptionId,
+  onSubscribe,
+  onUnsubscribe,
+}) {
 
   if(!feed) {
     return <div>Loading Feed....</div>
@@ -55,7 +83,17 @@ function FeedDetails({ feed, id, onUpdate }) {
       </div>
       <button onClick={() => handleUpdate(id, onUpdate)}
         className="b--none white bg-light-red pv2 ph3 mt2 dim pointer ttu">
-        Update now
+        Update
+      </button>
+
+      <button onClick={() => {
+          subscribed
+            ? handleUnsubscribe(subscriptionId, onUnsubscribe)
+            : handleSubscribe(id, onUnsubscribe)
+          }
+        }
+        className="b--none white bg-light-red pv2 ph3 mt2 dim pointer ttu ml2">
+        {subscribed ? "Unsusbscribe" : "Subscribe"}
       </button>
     </div>
   );

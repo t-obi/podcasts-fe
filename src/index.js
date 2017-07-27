@@ -16,6 +16,7 @@ import FeedsAdmin from './components/FeedsAdmin';
 import NotFound from './components/NotFound';
 import UnknownError from './components/UnknownError';
 import FeedDetailsPage from './components/FeedDetailsPage';
+import SubscriptionsPage from './components/SubscriptionsPage';
 
 const session = JSON.parse(localStorage.getItem('session'));
 
@@ -30,17 +31,19 @@ function validateLoggedIn(nextState, replace, callback) {
 
 axios.interceptors.response.use(response => response,
   error => {
-    switch(error.response.status) {
-      case 401:
-      browserHistory.push('/unauthorized');
-      return Promise.reject(error);
-      case 404:
-      browserHistory.push('/notfound');
-      return Promise.reject(error);
-      default:
-      browserHistory.push('/error', error.response.data.errors);
-      return Promise.reject(error);
-    }
+    console.log('received error: ', error);
+    return Promise.reject(error);
+    // switch(error.response.status) {
+    //   case 401:
+    //   browserHistory.push('/unauthorized');
+    //   return Promise.reject(error);
+    //   case 404:
+    //   browserHistory.push('/notfound');
+    //   return Promise.reject(error);
+    //   default:
+    //   browserHistory.push('/error', error.response.data.errors);
+    //   return Promise.reject(error);
+    // }
 });
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASEURL;
@@ -61,6 +64,7 @@ ReactDOM.render((
         <Route path="notfound" component={NotFound} />
         <Route path="error" component={UnknownError} />
         <Route path="feeds/:id" component={FeedDetailsPage} />
+        <Route path="subscriptions" component={SubscriptionsPage} />
         <Route path="admin" component={AdminContainer} onEnter={validateLoggedIn}>
           <Route path="users" component={UsersAdmin} />
           <Route path="feeds" >

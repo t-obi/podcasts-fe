@@ -17,7 +17,7 @@ function createEntity(data) {
     ); 
     result = result.set('relationships', relationships);
   }
-  console.log('createEntity result: ', result);
+
   return result;
 }
 
@@ -34,7 +34,20 @@ const api = (state = new Immutable.Map(), {type, ...data}) => {
 
     case 'ADD_ENTITY':
       const { id, ...entity } = data.entity;
-      return state.setIn([entity.type, id], createEntity(entity));
+      const withEntity = state.setIn([entity.type, id], createEntity(entity));
+
+      if(data.included) {
+        const withIncluded = data.included.reduce((accumulator, current) => {
+          return accumulator.setIn([current.type, current.id], createEntity(current))
+        }, withEntity)
+
+        return withIncluded;
+      }
+
+      return withEntity
+
+    case 'REMOVE_ENTITY':
+      return state.deleteIn([data.entity_type, '' + data.entity_id])
 
     default:
       return state
