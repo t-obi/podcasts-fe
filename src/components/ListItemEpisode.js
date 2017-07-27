@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import format from 'date-fns/format';
 import { Arrow } from 'reline';
 
 import { jsonApi } from '../actions';
 
 class ListItemEpisode extends Component {
-
-  async componentDidMount() {
-    const {
-      id,
-      handleJsonApiResponse,
-    } = this.props;
-    const result = await axios.get(`episodes/${id}`);
-    handleJsonApiResponse(result.data);
-  }
 
   render() {
     const { episode } = this.props;
@@ -33,7 +23,7 @@ class ListItemEpisode extends Component {
         </h4>
         <audio className="w-100"
           src={episode.get('enclosure')}
-          preload="metadata"
+          preload="none"
           controls
         />
         <div dangerouslySetInnerHTML={
