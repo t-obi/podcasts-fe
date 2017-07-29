@@ -1,6 +1,7 @@
 import Immutable from 'immutable';
 
 function getRelationships(data) {
+  console.log('get relationships data: ', data.toJS());
   return data.map(type => type
     .get('data', new Immutable.List())
     .map(x => x.get('id'))

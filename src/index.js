@@ -17,6 +17,7 @@ import NotFound from './components/NotFound';
 import UnknownError from './components/UnknownError';
 import FeedDetailsPage from './components/FeedDetailsPage';
 import SubscriptionsPage from './components/SubscriptionsPage';
+import PlaylistsPage from './components/PlaylistsPage';
 
 const session = JSON.parse(localStorage.getItem('session'));
 
@@ -65,6 +66,7 @@ ReactDOM.render((
         <Route path="error" component={UnknownError} />
         <Route path="feeds/:id" component={FeedDetailsPage} />
         <Route path="subscriptions" component={SubscriptionsPage} />
+        <Route path="playlists" component={PlaylistsPage} />
         <Route path="admin" component={AdminContainer} onEnter={validateLoggedIn}>
           <Route path="users" component={UsersAdmin} />
           <Route path="feeds" >

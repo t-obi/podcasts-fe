@@ -8,6 +8,7 @@ function Header(props) {
       <nav className="f6 fw6 ttu tracked">
         <Link className="link grow white dib f5" to="/">Podcasts</Link>
         <Link className="link grow white dib ml4" to="/subscriptions">Subscriptions</Link>
+        <Link className="link grow white dib ml4" to="/playlists">Playlists</Link>
         <UserMenu session={props.session}/>
       </nav>
     </header>
