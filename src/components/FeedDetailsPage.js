@@ -19,6 +19,9 @@ class FeedDetailsPage extends Component {
 
     const subscriptions = await axios.get(`subscriptions`);
     handleJsonApiResponse(subscriptions.data);
+
+    const playlists = await axios.get(`playlists`);
+    handleJsonApiResponse(playlists.data);
   }
 
   render() {
